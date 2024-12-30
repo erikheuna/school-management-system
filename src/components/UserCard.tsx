@@ -12,8 +12,6 @@ const UserCard = async ({ type }: { type: "admin" | "teacher" | "student" | "par
 
   const data = await modelMap[type].count(); 
 
-  console.log(data);
-
   return (
     <div className="rounded-2xl odd:bg-customPurple even:bg-customYellow p-4 flex-1 min-">
       <div className="flex justify-between items-center">

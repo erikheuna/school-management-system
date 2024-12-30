@@ -2,12 +2,13 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { role, subjectsData } from "@/lib/data";
+import { role } from "@/lib/utils";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { Prisma, Subject, Teacher } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import FormContainer from "@/components/FormContainer";
 
 const columns = [
   {
@@ -27,12 +28,6 @@ const columns = [
 
 type SubjectList = Subject & { teachers: Teacher[] };
 
-// type Subject = {
-//   id: number;
-//   name: string;
-//   teachers: string[];
-// };
-
 const renderRow = (item: SubjectList) => (
   <tr
     key={item.id}
@@ -44,15 +39,10 @@ const renderRow = (item: SubjectList) => (
     </td>
     <td className="hidden md:table-cell">
       <div className="flex items-center gap-2">
-        {/* <Link href={`/list/teachers/${item.id}`}>
-          <button className="w-7 h-7 flex items-center justify-center rounded-full bg-customSky">
-            <Image src="/edit.png" alt="" width={16} height={16} />
-          </button>
-        </Link> */}
         {role === "admin" && (
           <>
-            <FormModal table="subject" type="update" data={item} />
-            <FormModal table="subject" type="delete" id={item.id} />
+            <FormContainer table="subject" type="update" data={item} />
+            <FormContainer table="subject" type="delete" id={item.id} />
           </>
         )}
       </div>
@@ -65,7 +55,7 @@ const SubjectListPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
-  const { page, ...queryParams } = searchParams;
+  const { page, ...queryParams } = await searchParams;
 
   const p = page ? parseInt(page) : 1;
 
@@ -114,12 +104,7 @@ const SubjectListPage = async ({
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-customYellow">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            {role === "admin" && (
-              // <button className="w-8 h-8 flex items-center justify-center rounded-full bg-customYellow">
-              //   <Image src="/plus.png" alt="" width={14} height={14} />
-              // </button>
-              <FormModal table="subject" type="create" />
-            )}
+            {role === "admin" && <FormModal table="subject" type="create" />}
           </div>
         </div>
       </div>

@@ -15,11 +15,11 @@ const EventCalendar = () => {
 
   useEffect(() => {
     if (value instanceof Date) {
-      router.push(`?date=${value.toLocaleDateString('en-US')}`);
+      router.push(`?date=${value.toLocaleDateString("en-US")}`);
     }
   }, [value, router]);
 
-  return <Calendar onChange={setValue} value={value}/>;
+  return <Calendar onChange={setValue} value={value} />;
 };
 
 export default EventCalendar;

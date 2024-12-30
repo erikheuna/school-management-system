@@ -116,9 +116,9 @@ async function main() {
       data: {
         id: `student${i}`,
         username: `student${i}`,
+        email: `student${i}@example.com`,
         name: `SName${i}`,
         surname: `SSurname ${i}`,
-        email: `student${i}@example.com`,
         phone: `987-654-321${i}`,
         address: `Address${i}`,
         bloodType: "O-",
